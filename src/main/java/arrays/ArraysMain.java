@@ -54,6 +54,22 @@ public class ArraysMain {
         return Arrays.equals(c, d);
     }
 
+    public int min(int a, int b){
+        if (a<b){
+            return a;
+        }
+        else {
+            return b;
+        }
+
+    }
+    public boolean sameTempValuesDaylight(double[] day, double[] anotherDay){
+        int min=min(day.length,anotherDay.length);
+        double[] dayCopy=Arrays.copyOf(day,min);
+        double[] anotherDayCopy=Arrays.copyOf(anotherDay,min);
+        return  Arrays.equals(dayCopy,anotherDayCopy);
+    }
+
     public static void main(String[] args) {
         ArraysMain arraysMain = new ArraysMain();
         System.out.println(arraysMain.numberOfDaysAsString(arraysMain.numberOfDaysPerMonths()));
@@ -71,6 +87,9 @@ public class ArraysMain {
 
         System.out.println(arraysMain.sameTempValues(day, day2));
         System.out.println(arraysMain.wonLottery(a, b));
+        double[] dayx=new double[]{1,2,3,4,5};
+        double[] dayz=new double[]{1,2,3,4,5,6};
+        System.out.println(arraysMain.sameTempValuesDaylight(dayx,dayz));
 
     }
 
