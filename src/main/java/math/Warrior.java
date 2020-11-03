@@ -28,7 +28,7 @@ public class Warrior {
             position.setX((position.getX() < enemy.position.getX()) ? (position.getX() + 1) : (position.getX() - 1));
         } else if (position.getY()!=enemy.position.getY()) {
             position.setY(position.getX()<enemy.position.getY() ? position.getY()+1 : position.getY()-1);
-        } 
+        }
 
 
     }
