@@ -1,5 +1,7 @@
 package week02;
 
+import java.util.Scanner;
+
 public class Phone {
     private String name;
     private int mem;
@@ -26,8 +28,18 @@ public class Phone {
     }
 
     public static void main(String[] args) {
-        Phone phone1= new Phone("valami",2);
-        Phone phone2 = new Phone("valami2,",4);
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("name");
+        String name=scanner.nextLine();
+        System.out.println("mem:");
+        int mem=scanner.nextInt();
+        scanner.nextLine();
+        Phone phone1= new Phone(name,mem);
+        System.out.println("name");
+        String name2=scanner.nextLine();
+        System.out.println("mem:");
+        int mem2=scanner.nextInt();
+        Phone phone2 = new Phone(name2,mem2);
 
 
         System.out.println(phone1.getName()+" "+phone1.getMem());
