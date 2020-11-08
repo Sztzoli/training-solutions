@@ -4,12 +4,12 @@ package controlselection.month;
 public class DayInMonth {
     public int daysInMonth(int year, String month) {
         int number;
-        switch (month) {
+        switch (month.toLowerCase()) {
             case "Január":
                 number= 31;
                 break;
             case "Február":
-                number = year%4==0 ? 29 : 28;
+                number = (year%4==0 && year%100!=0) ? 29 : year%400==0 ? 29 : 28;
                 break;
             case "Március":
                 number= 31;
@@ -42,7 +42,7 @@ public class DayInMonth {
                 number= 31;
                 break;
             default:
-                number = 0;
+                throw new IllegalArgumentException("Invalid month: " + month);
         }
         return number;
     }
