@@ -5,40 +5,40 @@ public class DayInMonth {
     public int daysInMonth(int year, String month) {
         int number;
         switch (month.toLowerCase()) {
-            case "Január":
+            case "január":
                 number= 31;
                 break;
-            case "Február":
+            case "február":
                 number = (year%4==0 && year%100!=0) ? 29 : year%400==0 ? 29 : 28;
                 break;
-            case "Március":
+            case "március":
                 number= 31;
                 break;
-            case "Április":
+            case "április":
                 number = 30;
                 break;
-            case "Május":
+            case "május":
                 number= 31;
                 break;
-            case "Június":
+            case "június":
                 number = 30;
                 break;
-            case "Július":
+            case "július":
                 number= 31;
                 break;
-            case "Augusztus":
+            case "augusztus":
                 number= 31;
                 break;
-            case "Szeptember":
+            case "szeptember":
                 number = 30;
                 break;
-            case "Október":
+            case "október":
                 number= 31;
                 break;
-            case "November":
+            case "november":
                 number = 30;
                 break;
-            case "December":
+            case "december":
                 number= 31;
                 break;
             default:
