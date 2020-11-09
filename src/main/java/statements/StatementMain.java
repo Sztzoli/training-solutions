@@ -1,4 +1,4 @@
-package statement;
+package statements;
 
 public class StatementMain {
     public static void main(String[] args) {
