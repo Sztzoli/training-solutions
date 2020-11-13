@@ -10,7 +10,7 @@ public class PetTest {
 
     @Test
     public void testGetName() {
-        Pet pet=new Pet("János", LocalDate.of(2020,9,10), Sex.HÍM , "012345");
+        Pet pet=new Pet("János", LocalDate.of(2020,9,10), Gender.MALE , "012345");
 
         assertEquals("János", pet.getName());
     }
@@ -18,13 +18,13 @@ public class PetTest {
 
     @Test
     public void testGetRegNumber() {
-        Pet pet=new Pet("János", LocalDate.of(2020,9,10), Sex.HÍM , "012345");
+        Pet pet=new Pet("János", LocalDate.of(2020,9,10), Gender.MALE , "012345");
 
 
 
         assertEquals("012345", pet.getRegNumber());
-        assertThrows(IllegalArgumentException.class, ()->new Pet("János", LocalDate.of(2020,9,10), Sex.HÍM , "0012345"));
-        assertThrows(IllegalArgumentException.class, ()->new Pet("János", LocalDate.of(2020,9,10), Sex.HÍM , "001m45"));
+        assertThrows(IllegalArgumentException.class, ()->new Pet("János", LocalDate.of(2020,9,10), Gender.MALE , "0012345"));
+        assertThrows(IllegalArgumentException.class, ()->new Pet("János", LocalDate.of(2020,9,10), Gender.MALE , "001m45"));
 
     }
 }

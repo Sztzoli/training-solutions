@@ -6,16 +6,16 @@ public class Pet {
 
     private String name;
     private LocalDate birthDate;
-    private Sex sex;
+    private Gender gender;
     private String regNumber;
 
-    public Pet(String name, LocalDate birthDate, Sex sex, String regNumber) {
+    public Pet(String name, LocalDate birthDate, Gender gender, String regNumber) {
         if (!new RegNumberValidator().validator(regNumber)){
             throw new IllegalArgumentException("Rossz a regNem: " +regNumber);
         }
         this.name = name;
         this.birthDate = birthDate;
-        this.sex = sex;
+        this.gender = gender;
         this.regNumber = regNumber;
     }
 
@@ -27,8 +27,8 @@ public class Pet {
         return birthDate;
     }
 
-    public Sex getSex() {
-        return sex;
+    public Gender getSex() {
+        return gender;
     }
 
     public String getRegNumber() {
