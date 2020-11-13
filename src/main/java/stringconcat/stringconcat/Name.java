@@ -13,7 +13,7 @@ public class Name {
 
     public Name(String familyName, String middleName, String givenName) {
         if (!isEmpty(familyName) || !isEmpty(givenName)) {
-            throw new IllegalArgumentException("üres a név");
+            throw new IllegalArgumentException("Family name and given name must not be empty!");
         }
         this.familyName = familyName;
         this.middleName = middleName;
@@ -24,6 +24,7 @@ public class Name {
         String s = "";
         if (title != null) {
             s = s.concat(title.getTitle());
+            s = s.concat(" ");
         }
         s = s.concat(givenName);
         s = s.concat(" ");
@@ -41,15 +42,16 @@ public class Name {
         String s = "";
         if (title != null) {
             s += title.getTitle();
+            s = s.concat(" ");
         }
         s += familyName;
         s += " ";
-        s += givenName;
-        if (isEmpty(middleName)) {
-            s += " ";
-            s += middleName;
-        }
 
+        if (isEmpty(middleName)) {
+            s += middleName;
+            s += " ";
+        }
+        s += givenName;
 
         return s;
     }
