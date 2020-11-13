@@ -5,28 +5,24 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StringCreatorTest {
-
     @Test
-    public void TestPoolAndHeap() {
-        String s1=new StringCreator().createStringForPool();
-        String s3=new StringCreator().createStringForPool();
-        String s2=new StringCreator().createStringForHeap();
+    public void sameStringsInPoolShouldBeTheSameObject() {
+        //Given
+        StringCreator sc = new StringCreator();
 
-
-        assertFalse(s1==s2);
-        assertTrue(s1.equals(s2));
-        assertTrue(s1==s3);
-
-
+        //Then
+        assertTrue(sc.createStringForPool() == sc.createStringForPool());
+        assertFalse(sc.createStringForHeap() == sc.createStringForHeap());
+        assertTrue(sc.createStringForPool().equals(sc.createStringForHeap()));
     }
 
     @Test
-    public void TestIntern() {
-        String s1=new StringCreator().createStringForPool();
-        String s3=new StringCreator().createStringForPool();
-        String s2=new StringCreator().createStringForHeap();
+    public void sameStringsShouldBeTheSameByCanonicalRepresentation() {
+        //Given
+        StringCreator sc = new StringCreator();
 
-        assertTrue(s1.intern()==s2.intern());
-        assertTrue(s1.intern()==s3.intern());
+        //Then
+        assertTrue(sc.createStringForHeap().intern() == sc.createStringForHeap().intern());
+        assertTrue(sc.createStringForHeap().intern() == sc.createStringForPool().intern());
     }
 }
