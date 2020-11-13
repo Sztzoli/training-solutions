@@ -7,14 +7,14 @@ public class Employee {
     private int salary;
 
     public Employee(String name, String position, int salary) {
-        if (name == null || name.equals("") ) {
-            throw new IllegalArgumentException("rossz név");
+        if (name == null || name.trim().isEmpty() ) {
+            throw new IllegalArgumentException("Name must not be empty.");
         }
         if (position == null || position.equals("") ) {
-            throw new IllegalArgumentException("rossz pozició");
+            throw new IllegalArgumentException("Job must not be empty.");
         }
         if (salary%1000!=0 || salary<0){
-            throw new IllegalArgumentException("rossz fizetés");
+            throw new IllegalArgumentException("Salary must be positive.");
         }
         this.name = name;
         this.position = position;
@@ -25,7 +25,7 @@ public class Employee {
         return name;
     }
 
-    public String getPosition() {
+    public String getJob() {
         return position;
     }
 
@@ -35,6 +35,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return name + " - "+ position +" - "+salary;
+        return name + " - "+ position +" - "+salary +" Ft";
     }
 }
