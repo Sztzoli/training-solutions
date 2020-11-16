@@ -4,8 +4,8 @@ public class NameChanger {
     private String fullName;
 
     public NameChanger(String fullName) {
-        if (fullName==null | fullName.isBlank()){
-            throw new IllegalArgumentException("Invalid Name:<"+fullName+">");
+        if (fullName==null || fullName.isBlank()){
+            throw new IllegalArgumentException("Invalid Name: "+fullName);
         }
         this.fullName = fullName;
     }

@@ -12,4 +12,12 @@ class NameChangerTest {
         nameChanger.changeFirstName("Jack");
         assertEquals("Doe Jack",nameChanger.getFullName());
     }
+
+    @Test
+    void createNameChangerTest() {
+
+        IllegalArgumentException iae = assertThrows(IllegalArgumentException.class, ()->new NameChanger(""));
+        assertThrows(IllegalArgumentException.class, ()->new NameChanger(null));
+        assertEquals("Invalid Name: ", iae.getMessage());
+    }
 }
