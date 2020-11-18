@@ -7,7 +7,8 @@ public class NumberGuesser {
 
     public static void main(String[] args) {
 
-        int number=new Random().nextInt(100)+1;
+        int number=new Random(1).nextInt(100)+1;
+        System.out.println(number);
         NumberGuesser numberGuesser=new NumberGuesser();
         numberGuesser.program(number);
 
@@ -17,17 +18,23 @@ public class NumberGuesser {
     public void program(int number){
         boolean correct = false;
         Scanner scanner=new Scanner(System.in);
-        while (!correct){
+        int count=0;
+        while (count<6 && !correct){
             System.out.println("Tipp:");
             int guessNumber = Integer.parseInt(scanner.nextLine());
             if (number>guessNumber){
                 System.out.println("nagyobb a keresett szám");
+                count++;
             } else if (number<guessNumber){
                 System.out.println("kisebb a keresett szám");
+                count++;
             } else {
                 System.out.println("Talált");
                 correct=true;
             }
+        }
+        if (count==6){
+            System.out.println("vesztes");
         }
     }
 
