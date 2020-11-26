@@ -5,6 +5,9 @@ import java.util.List;
 public class UserValidator {
 
     public void validate(List<User> users){
+        if (users==null) {
+            throw new IllegalArgumentException("Users is null");
+        }
         for (User user : users) {
             String userName=user.getName();
             int userAge=user.getAge();
