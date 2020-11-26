@@ -32,8 +32,8 @@ public class Person {
 
     public boolean isEmpty(String str){
         if (str==null || str.isBlank()) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }
