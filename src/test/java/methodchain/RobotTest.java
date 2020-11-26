@@ -42,7 +42,6 @@ class RobotTest {
         //When
         robot.go(5).rotate(45).registerNavigationPoint().go(10).rotate(-15).registerNavigationPoint();
         //Then
-        assertEquals("[" +
-                ", distance: 15 azimut: 30]", robot.getNavigationList().toString());
+        assertEquals("[distance: 5 azimut: 45, distance: 15 azimut: 30]", robot.getNavigationList().toString());
     }
 }
