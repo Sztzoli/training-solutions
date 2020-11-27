@@ -1,16 +1,16 @@
 package week05d04;
 
-public enum Currency {
+public enum  Currency {
     HUF(1),
-    USD(1/300d);
+    USD(300);
 
-    private  double exchangeRateToHUF;
+    private  double exchangeRate;
 
     Currency(double exchangeRateToHUF) {
-        this.exchangeRateToHUF = exchangeRateToHUF;
+        this.exchangeRate = exchangeRateToHUF;
     }
 
-    public double getExchangeRateToHUF() {
-        return exchangeRateToHUF;
+    public double getExchangeRate() {
+        return exchangeRate;
     }
 }

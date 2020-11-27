@@ -32,7 +32,7 @@ public class Product {
     }
 
     public double convertPrice(Currency currency){
-        double result = price * currency.getExchangeRateToHUF();
+        double result = price * this.currency.getExchangeRate() / currency.getExchangeRate();
         return result;
     }
 }
