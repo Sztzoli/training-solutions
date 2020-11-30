@@ -14,7 +14,7 @@ public class SeparatedSum {
         Scanner sc = new Scanner(s).useDelimiter(";");
 
         while (sc.hasNext()) {
-            result.add(sc.nextDouble());
+            result.add(Double.parseDouble(sc.next()));
         }
         return result;
     }
