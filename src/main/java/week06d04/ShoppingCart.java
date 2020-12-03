@@ -14,31 +14,31 @@ public class ShoppingCart {
         if (quantity<0) {
             throw new IllegalArgumentException("quantity can't be negative ");
         }
-        if (!isContain(name, quantity)) {
+        Item charItem = getItemByName(name);
+        if (charItem==null){
             shoppingList.add(new Item(name, quantity));
+        } else {
+            charItem.increaseQuantity(quantity);
         }
 
     }
 
-    private boolean isContain(String name, int quantity) {
+    private Item getItemByName(String name) {
         for (Item item : shoppingList) {
             if (name.equals(item.getName())) {
-                item.increaseQuantity(quantity);
-                return true;
+                return item;
             }
 
         }
-        return false;
+        return null;
 
     }
 
     public int getItem (String name) {
-        for (Item item : shoppingList) {
-            if(name.equals(item.getName())){
-                return item.getQuantity();
-            }
+        if (getItemByName(name)==null) {
+            return 0;
         }
-        return 0;
+        return getItemByName(name).getQuantity();
     }
 
     public List<Item> getShoppingList() {
