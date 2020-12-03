@@ -19,4 +19,15 @@ class ShoppingCartTest {
 
     }
 
+    @Test
+    void testGetItem() {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.addItem("sör", 1000);
+        shoppingCart.addItem("bor", 1);
+        shoppingCart.addItem("sör", 1000);
+        assertEquals(2000, shoppingCart.getItem("sör"));
+        assertEquals(0, shoppingCart.getItem("nemSör"));
+
+    }
+
 }

@@ -32,6 +32,15 @@ public class ShoppingCart {
 
     }
 
+    public int getItem (String name) {
+        for (Item item : shoppingList) {
+            if(name.equals(item.getName())){
+                return item.getQuantity();
+            }
+        }
+        return 0;
+    }
+
     public List<Item> getShoppingList() {
         return List.copyOf(shoppingList);
     }
