@@ -2,49 +2,31 @@ package exceptionmulticatch.converter;
 
 public class BinaryStringConverter {
 
-    public boolean[] binaryStringToBooleanArray(String str){
-        boolean[] array = new boolean[str.length()];
-
-        try {
-            for (int i = 0; i < array.length; i++) {
-                array[i] = convertCharToBoolean(str.charAt(i));
-            }
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException();
+    public boolean[] binaryStringToBooleanArray(String binaryString) {
+        if (binaryString == null)
+            throw new NullPointerException("binaryString null");
+        boolean[] booleans = new boolean[binaryString.length()];
+        for (int j = 0; j < binaryString.length(); j++) {
+            char c = binaryString.charAt(j);
+            if (c != '0' && c != '1')
+                throw new IllegalArgumentException("binaryString not valid");
+            booleans[j] = c == '1';
         }
-        return array;
+        return booleans;
     }
 
-    private boolean convertCharToBoolean(char c) {
-        if (c=='0')  {
-            return false;
-        }
-        if (c=='1') {
-            return true;
-        }
-        throw new IllegalArgumentException();
-    }
-
-    public String booleanArrayToBinaryString(boolean[] array) {
-        if (array==null || array.length==0) {
-            throw new IllegalArgumentException();
-        }
-        StringBuilder sb = new StringBuilder();
-        try {
-            for (boolean b : array) {
-                sb.append(convertBooleantoChar(b));
-            }
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException();
+    public String booleanArrayToBinaryString(boolean[] booleans) {
+        if (booleans == null)
+            throw new NullPointerException("booleans null");
+        if (booleans.length == 0)
+            throw new IllegalArgumentException("booleans size 0");
+        StringBuilder sb = new StringBuilder(booleans.length);
+        for (int j = 0; j < booleans.length; j++) {
+            if (booleans[j])
+                sb.append('1');
+            else
+                sb.append('0');
         }
         return sb.toString();
-    }
-
-    private char convertBooleantoChar(boolean b) {
-        if (b)  {
-            return '1';
-        }
-
-            return '0';
     }
 }

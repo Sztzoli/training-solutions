@@ -8,35 +8,27 @@ public class AnswerStat {
 
     private BinaryStringConverter converter;
 
-    public AnswerStat(BinaryStringConverter converter) {
-        this.converter = converter;
-    }
-
-    public boolean[] convert(String str) {
-        try {
-            return converter.binaryStringToBooleanArray(str);
-        } catch (NullPointerException | IllegalArgumentException e) {
-            throw new InvalidBinaryStringException("binaryString not valid");
-        }
+    public AnswerStat(BinaryStringConverter binaryStringConverter) {
+        this.converter = binaryStringConverter;
     }
 
     public int answerTruePercent(String answers) {
-        boolean[] array = new boolean[answers.length()];
-        try {
-            array=converter.binaryStringToBooleanArray(answers);
-        } catch (NullPointerException | IllegalArgumentException e) {
-            throw new InvalidBinaryStringException("binaryString not valid");
-        }
-        return answerTruePercent(array);
-    }
-
-    private int answerTruePercent(boolean[] array) {
-        int count=0;
-        for (boolean b : array) {
-            if (b) {
-                count++;
+        boolean[] booleans = convert(answers);
+        int numberOfTrue = 0;
+        for (int j = 0; j < booleans.length; j++) {
+            if (booleans[j]) {
+                numberOfTrue++;
             }
         }
-        return (int)Math.round(count/(double)array.length*100);
+        return (int)Math.round((double)numberOfTrue / booleans.length * 100);
+    }
+
+    public boolean[] convert(String checkboxes) {
+        try {
+            return converter.binaryStringToBooleanArray(checkboxes);
+        } catch (NullPointerException | IllegalArgumentException ex) {
+            ex.printStackTrace();
+            throw new InvalidBinaryStringException(ex);
+        }
     }
 }
