@@ -5,10 +5,12 @@ public interface User {
     String getUserName();
     String getFirstName();
     String getLastName();
-    String getFullName();
+    default String getFullName(){
+        return getFirstName()+" "+getLastName();
+    }
 
-    static User of(User user) {
-        return user;
+    static User of(String userName, String firstName, String lastName) {
+        return new UserImpl(userName, firstName, lastName);
 
     }
 

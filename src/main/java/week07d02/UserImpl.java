@@ -10,7 +10,6 @@ public class UserImpl implements User{
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
-        fullName= firstName +" "+ lastName;
     }
 
 
@@ -30,10 +29,7 @@ public class UserImpl implements User{
         return lastName;
     }
 
-    @Override
-    public String getFullName() {
-        return fullName;
-    }
+
 
 
 }
