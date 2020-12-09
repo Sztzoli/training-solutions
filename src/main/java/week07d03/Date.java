@@ -8,7 +8,8 @@ public class Date {
     public static final int[] DAYSOFMONTH = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     public static final int[] DAYSOFMONTHLEAPYEAR = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    public Date(int year, int month, int day) {
+    private Date(int year, int month, int day) {
+        paramCheck(year, month, day);
         this.year = year;
         this.month = month;
         this.day = day;
@@ -60,10 +61,7 @@ public class Date {
     }
 
     private boolean leapYear(int year) {
-        if (year % 4 != 0 || (year % 100 == 0 && year % 400 != 0)) {
-            return false;
-        }
-        return true;
+        return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
     }
 
 

@@ -7,14 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class DateTest {
 
 
-    @Test
-    void testCraete() {
-        Date date = new Date(2020, 12, 9);
-        assertEquals(2020, date.getYear());
-        assertEquals(12, date.getMonth());
-        assertEquals(9, date.getDay());
-
-    }
 
     @Test
     void testDateOF() {
