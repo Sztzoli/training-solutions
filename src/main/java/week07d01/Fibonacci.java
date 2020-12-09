@@ -42,6 +42,6 @@ public class Fibonacci {
 
     }
 
-    private static final Long[] RESULT = new Long[Integer.MAX_VALUE];
+    private static final Long[] RESULT = new Long[1000];
 
 }
