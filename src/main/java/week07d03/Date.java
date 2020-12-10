@@ -1,5 +1,7 @@
 package week07d03;
 
+import java.util.Objects;
+
 public class Date {
     private final int year;
     private final int month;
@@ -32,15 +34,15 @@ public class Date {
     }
 
     public Date withYear(int year) {
-        return new Date(year, month, day);
+        return Date.of(year, month, day);
     }
 
     public Date withMonth(int month) {
-        return new Date(year, month, day);
+        return Date.of(year, month, day);
     }
 
     public Date withDay(int day) {
-        return new Date(year, month, day);
+        return Date.of(year, month, day);
 
     }
 
@@ -65,4 +67,16 @@ public class Date {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Date date = (Date) o;
+        return year == date.year && month == date.month && day == date.day;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year, month, day);
+    }
 }
