@@ -1,6 +1,4 @@
-package week03;
-
-import attributes.person.Person;
+package week03d02;
 
 import java.util.ArrayList;
 import java.util.List;
