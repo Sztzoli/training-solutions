@@ -3,10 +3,9 @@ package week4;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import week04d02.Search;
 
 import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 public class SearchTest {
@@ -21,7 +20,7 @@ public class SearchTest {
     public void Given_a_string_and_a_char_When_there_is_one_match_Then_the_proper_index_is_returned() {
         Assertions.assertEquals(
                 Arrays.asList(1),
-                target.search("ketchup", 'e')
+                target.getIndexesOfChar("ketchup", 'e')
         );
     }
 
@@ -29,7 +28,7 @@ public class SearchTest {
     public void Given_a_string_and_a_char_When_there_is_more_than_one_match_Then_the_proper_indexes_are_returned() {
         Assertions.assertEquals(
                 Arrays.asList(1, 3),
-                target.search("kefe", 'e')
+                target.getIndexesOfChar("kefe", 'e')
         );
     }
 }

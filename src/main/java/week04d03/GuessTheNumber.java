@@ -1,15 +1,15 @@
-package week4;
+package week04d03;
 
 import java.util.Random;
 import java.util.Scanner;
 
-public class NumberGuesser {
+public class GuessTheNumber {
 
     public static void main(String[] args) {
 
         int number=new Random(1).nextInt(100)+1;
         System.out.println(number);
-        NumberGuesser numberGuesser=new NumberGuesser();
+        GuessTheNumber numberGuesser=new GuessTheNumber();
         numberGuesser.program(number);
 
 
