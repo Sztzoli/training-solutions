@@ -20,14 +20,8 @@ class DateTest {
     @Test
     void testWith() {
         Date date = Date.of(2020,12,9);
-        Date dateYear = date.withYear(2000);
-        assertEquals(2000, dateYear.getYear() );
 
-        Date dateMonth = date.withMonth(11);
-        assertEquals(11, dateMonth.getMonth() );
-
-        Date dateDay= date.withDay(8);
-        assertEquals(8, dateDay.getDay());
+        assertEquals(Date.of(2010,10,10), date.withYear(2010).withMonth(10).withDay(10));
     }
 
 
