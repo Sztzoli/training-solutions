@@ -9,31 +9,49 @@ import java.util.Scanner;
 
 public class SaveInput {
 
-    public List<String>  init() {
+    private Scanner scanner;
+
+    public SaveInput(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    public List<String> readLines() {
         List<String> lines = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
         for (int i = 0; i < 3; i++) {
             System.out.println("adj meg egy sort");
             String line = scanner.nextLine();
             lines.add(line);
         }
-        System.out.println("adj meg a fájl nevét");
-        String fileName = scanner.nextLine();
-        lines.add(fileName);
         return lines;
     }
 
-    public static void main(String[] args) {
-        SaveInput saveInput = new SaveInput();
-        List<String> lines = saveInput.init();
-        String fileName = lines.get(3);
-        List<String> linesWithoutName = lines.subList(0,3);
-        Path file = Path.of("src/main/resources/week07d05/"+fileName+".txt");
+    private Path readFileName () {
+        System.out.println("adj meg a fájl nevét");
+        String fileName = scanner.nextLine();
+        Path path = Path.of(fileName);
+        return path;
+    }
+
+
+
+
+    public void write(Path path, List<String> lines) {
         try {
-            Files.write(file, linesWithoutName);
+            Files.write(path, lines);
         } catch (IOException e) {
-            throw new IllegalStateException("Can not write file");
+            throw new IllegalStateException("Can not write file",e);
         }
+    }
+
+    public static void main(String[] args) {
+
+
+        Scanner scanner = new Scanner(System.in);
+        SaveInput saveInput = new SaveInput(scanner);
+        List<String> lines = saveInput.readLines();
+        Path file = saveInput.readFileName();
+        saveInput.write(file, lines);
+
 
     }
 }
