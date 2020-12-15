@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public class Country {
 
-    private String name;
-    private int population;
-    private int numberOfColorInFlag;
-    private int borderCountries;
+    private final String name;
+    private final int population;
+    private final int numberOfColorInFlag;
+    private final int borderCountries;
 
     public Country(String name, int population, int numberOfColorInFlag, int borderCountries) {
         this.name = name;
