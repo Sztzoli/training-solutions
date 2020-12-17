@@ -11,10 +11,9 @@ public class StringLists {
         for (String word : words) {
             if (word.length()<minLength){
                 shortWords.clear();
-                shortWords.add(word);
                 minLength = word.length();
             }
-            else if (word.length()==minLength) {
+            if (word.length()==minLength) {
                 shortWords.add(word);
             }
         }
