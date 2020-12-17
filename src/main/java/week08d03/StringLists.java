@@ -10,7 +10,7 @@ public class StringLists {
         int minLength = Integer.MAX_VALUE;
         for (String word : words) {
             if (word.length()<minLength){
-                shortWords.removeAll(shortWords);
+                shortWords.clear();
                 shortWords.add(word);
                 minLength = word.length();
             }
