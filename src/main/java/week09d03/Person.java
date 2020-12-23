@@ -15,12 +15,12 @@ public class Person {
     }
 
     public void setPresent(Random rnd) {
-
-        int presentIndex = rnd.nextInt(4);
         if (age>14){
-            present=null;
+            int presentIndex = rnd.nextInt(3)+1;
+            present=Present.values()[presentIndex];
         } else {
-            present = Present.values()[presentIndex];
+            int presentIndex = rnd.nextInt(4);
+            present = Present.values()[presentIndex] ;
         }
 
 

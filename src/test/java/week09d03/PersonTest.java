@@ -3,7 +3,7 @@ package week09d03;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.Arrays;
+
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,16 +28,13 @@ class PersonTest {
     @Test
     void setPresentBelow14Test() {
         person.setPresent(new Random(1));
-
-        assertNotNull(person.getPresent());
-        assertTrue(Arrays.asList(Present.values()).contains(person.getPresent()));
         assertEquals(Present.HOUSEKEEPING, person.getPresent());
     }
 
     @Test
     void setPresentOver14Test() {
         Person olderPerson = new Person("Jé", 15);
-        person.setPresent(new Random(1));
-        assertNull(olderPerson.getPresent());
+        olderPerson.setPresent(new Random(1));
+        assertEquals(Present.ELECTRONIC,olderPerson.getPresent());
     }
 }
