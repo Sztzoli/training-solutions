@@ -17,6 +17,13 @@ class NumbersTest {
     }
 
     @Test
+    public void min2() {
+        Numbers numbers = new Numbers(Arrays.asList(1, 4, 7, 2, -3, 9, -4));
+
+        assertEquals(-4, numbers.min2());
+    }
+
+    @Test
     public void minForEmptyList() {
         Numbers numbers = new Numbers(Collections.emptyList());
 
@@ -28,6 +35,13 @@ class NumbersTest {
         Numbers numbers = new Numbers(Arrays.asList(1, 4, 7, 2, -3, 9, -4));
 
         assertEquals(16, numbers.sum());
+    }
+
+    @Test
+    public void sum2() {
+        Numbers numbers = new Numbers(Arrays.asList(1, 4, 7, 2, -3, 9, -4));
+
+        assertEquals(16l, numbers.sum2());
     }
 
     @Test

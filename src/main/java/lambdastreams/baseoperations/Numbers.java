@@ -22,12 +22,28 @@ public class Numbers {
 
     }
 
+    public int min2() {
+        return integerList.stream()
+                .mapToInt(integer -> integer.intValue())
+                .summaryStatistics().getMin()
+                ;
+
+    }
+
     public int sum() {
         return integerList.stream()
                 .reduce(0,
                         Integer::sum,
                         Integer::sum
                 );
+
+    }
+
+    public long sum2() {
+        return integerList.stream()
+                .mapToInt(Integer::intValue)
+                .summaryStatistics().getSum();
+
 
     }
 
