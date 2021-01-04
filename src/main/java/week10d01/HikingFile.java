@@ -7,9 +7,9 @@ import java.io.InputStreamReader;
 
 public class HikingFile {
 
-    public Result getPlusElevation() {
+    public Result getPlusElevation(InputStream is) {
         Result result = new Result(0, 0);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(HikingFile.class.getResourceAsStream("/gps.txt")))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
             String line;
             double temp = Double.parseDouble(reader.readLine().split(",")[2]);
             while ((line = reader.readLine()) != null) {

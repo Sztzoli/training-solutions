@@ -9,10 +9,12 @@ class HikingFileTest {
     @Test
     void resultTest() {
         HikingFile hikingFile = new HikingFile();
-        Result result = hikingFile.getPlusElevation();
+        Result result = hikingFile.getPlusElevation(HikingFile.class.getResourceAsStream("/gps.txt"));
 
-        System.out.println(result.getRise());
-        System.out.println(result.getDecrease());
+        assertEquals(10, result.getRise());
+        assertEquals(20, result.getDecrease());
+
+
     }
 
 }
