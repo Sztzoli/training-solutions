@@ -1,4 +1,4 @@
-package introexeption.patient;
+package introexception.patient;
 
 public class Patient {
     private String name;
