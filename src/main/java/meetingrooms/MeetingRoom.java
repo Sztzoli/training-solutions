@@ -1,4 +1,4 @@
-package week02.modulproject;
+package meetingrooms;
 
 public class MeetingRoom {
     private String name;

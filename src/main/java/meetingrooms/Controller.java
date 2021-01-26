@@ -1,4 +1,4 @@
-package week02.modulproject;
+package meetingrooms;
 
 import java.util.Scanner;
 
