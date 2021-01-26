@@ -1,4 +1,4 @@
-package week4.modulproject2;
+package schoolrecords;
 
 public class Subject {
     private String subjectName;
