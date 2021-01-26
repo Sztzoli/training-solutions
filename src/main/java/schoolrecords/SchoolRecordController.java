@@ -1,4 +1,4 @@
-package week4.modulproject2;
+package schoolrecords;
 
 
 import java.util.*;
