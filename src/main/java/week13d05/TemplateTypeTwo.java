@@ -7,7 +7,7 @@ public class TemplateTypeTwo implements StringTemplate {
     @Override
     public String format(List<BillItem> items) {
         StringBuilder sb = new StringBuilder();
-        String firstLine = String.format("%-20s %13s %5s %6s", "Megnevezés", "Egységár (Ft)", "Darab", "Összeg");
+        String firstLine = String.format("%-20s %13s %5s %6s", "Megnevezés", "Egység ár (Ft)", "Darab", "Összeg");
         sb.append(firstLine);
         sb.append("\n");
         for (BillItem item : items) {
