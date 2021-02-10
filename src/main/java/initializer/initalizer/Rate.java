@@ -1,6 +1,4 @@
-package initalizer.initalizer;
-
-import java.util.List;
+package initializer.initalizer;
 
 public class Rate {
 

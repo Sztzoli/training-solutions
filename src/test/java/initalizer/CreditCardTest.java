@@ -1,8 +1,8 @@
 package initalizer;
 
-import initalizer.initalizer.CreditCard;
-import initalizer.initalizer.Currency;
-import initalizer.initalizer.Rate;
+import initializer.initalizer.CreditCard;
+import initializer.initalizer.Currency;
+import initializer.initalizer.Rate;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
