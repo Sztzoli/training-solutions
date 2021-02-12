@@ -47,7 +47,7 @@ public class CovidMain {
     public List<Country> sortFirstThree() {
         List<Country> result = new ArrayList<>(list);
         result.sort(Comparator.comparingDouble(x -> ((double) x.getCaseNumber()/ x.getPopulation())));
-        //Collections.reverse(result);
+        Collections.reverse(result);
         return result.subList(0,5);
     }
     public static void main(String[] args) {
