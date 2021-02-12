@@ -7,15 +7,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CovidMain {
 
-    private List<CountryWithCase> list = new ArrayList<>();
+    private List<Country> list;
 
     public void readFile(Path path) {
         try (BufferedReader reader = Files.newBufferedReader(path)){
             String line;
-            Map<Country, Integer> casePerCountry = new HashMap<>();
+            Map<String, Country> casePerCountry = new HashMap<>();
             reader.readLine();
             while ((line= reader.readLine())!=null) {
                 String[] parts = line.split(",");
@@ -28,21 +29,26 @@ public class CovidMain {
                 }
 
                 int casePerWeek = Integer.parseInt(parts[2]);
-                casePerCountry.merge(new Country(countryName,Population), 0, Integer::sum);
+               if (!casePerCountry.containsKey(countryName)) {
+                   casePerCountry.put(countryName, new Country(countryName, Population, casePerWeek));
+               }
+               else {
+                   casePerCountry.get(countryName).addCase(casePerWeek);
+               }
+
             }
-            for (Map.Entry<Country, Integer> cases : casePerCountry.entrySet()) {
-                list.add(new CountryWithCase(cases.getKey().getName(),cases.getKey().getPopulation(), cases.getValue()));
-            }
+            list = new ArrayList<>(casePerCountry.values());
 
         } catch (IOException ioe) {
             throw new IllegalStateException("File cannot read");
         }
 
     }
-    public List<CountryWithCase> sortFirstThree() {
-        List<CountryWithCase> result = new ArrayList<>(list);
-        result.sort(Comparator.comparingDouble(x -> (double) x.getCaseSum()/ x.getPopulation()));
-        return result.subList(0,3);
+    public List<Country> sortFirstThree() {
+        List<Country> result = new ArrayList<>(list);
+        result.sort(Comparator.comparingDouble(x -> ((double) x.getCaseNumber()/ x.getPopulation())));
+        //Collections.reverse(result);
+        return result.subList(0,5);
     }
     public static void main(String[] args) {
         CovidMain covidMain = new CovidMain();
