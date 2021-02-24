@@ -10,27 +10,65 @@ import java.util.List;
 
 public class ActivityDao {
 
-private DataSource dataSource;
+    private DataSource dataSource;
 
     public ActivityDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    void saveActivity(Activity activity) {
+    public Activity saveActivity(Activity activity) {
         String sql = "insert into `activities`(`activity_starttime`,`activity_desc`,`activity_type`) values (?,?,?)";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps =
-                     conn.prepareStatement(sql);
+                     conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ) {
             ps.setTimestamp(1, Timestamp.valueOf(activity.getStartTime()));
             ps.setString(2, activity.getDesc());
             ps.setString(3, activity.getType().toString());
             ps.executeUpdate();
+            long id = executeAndGetGeneratedKey(ps);
+            return new Activity(id, activity.getStartTime(), activity.getDesc(), activity.getType());
         } catch (SQLException sqle) {
             throw new IllegalArgumentException("Error by insert", sqle);
         }
     }
-    Activity findActivityById(long id) {
+
+    public List<Activity> insertActivities(List<Activity> activities) {
+        String sql = "insert into `activities`(`activity_starttime`,`activity_desc`,`activity_type`) values " + "(?,?,?),".repeat(activities.size());
+        sql = sql.substring(0, sql.length()-1);
+        List<Activity> result = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            int i = 1;
+            for (Activity activity : activities) {
+                ps.setTimestamp(i++, Timestamp.valueOf(activity.getStartTime()));
+                ps.setString(i++, activity.getDesc());
+                ps.setString(i++, activity.getType().toString());
+            }
+            ps.executeUpdate();
+            for (Activity activity : activities) {
+                long id = executeAndGetGeneratedKey(ps);
+                result.add(new Activity(id, activity.getStartTime(), activity.getDesc(), activity.getType()));
+            }
+            return result;
+        } catch (SQLException sqle) {
+            throw new IllegalStateException("Error by insert", sqle);
+        }
+    }
+
+    private long executeAndGetGeneratedKey(PreparedStatement ps) {
+        try (ResultSet rs = ps.getGeneratedKeys()) {
+            if (rs.next()) {
+                return rs.getLong(1);
+            } else {
+                throw new SQLException("No key was generated");
+            }
+        } catch (SQLException throwables) {
+            throw new IllegalStateException("Error by insert");
+        }
+    }
+
+    public Activity findActivityById(long id) {
         String sql = "SELECT * FROM `activities` WHERE `activity_id` = ?";
         try (
                 Connection conn = dataSource.getConnection();
@@ -38,7 +76,7 @@ private DataSource dataSource;
                         conn.prepareStatement(sql);
         ) {
             ps.setLong(1, id);
-            if (getActivityFromResultSet(ps).size()==1){
+            if (getActivityFromResultSet(ps).size() == 1) {
                 return getActivityFromResultSet(ps).get(0);
             }
             throw new IllegalStateException("Not Found");
@@ -46,6 +84,7 @@ private DataSource dataSource;
             throw new IllegalArgumentException("Error by insert", sqle);
         }
     }
+
     List<Activity> listActivities() {
         String sql = "SELECT * FROM `activities` ORDER BY `activity_id`";
         try (
@@ -62,9 +101,9 @@ private DataSource dataSource;
     public List<Activity> listActivityByType(ActivityType type) {
         String sql = "SELECT * FROM `activities` where `activity_type` = ?";
         try (Connection conn = dataSource.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql)){
-            ps.setString(1,type.toString());
-            if (getActivityFromResultSet(ps).size()==0) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, type.toString());
+            if (getActivityFromResultSet(ps).size() == 0) {
                 throw new IllegalStateException("List is empty");
             }
             return getActivityFromResultSet(ps);

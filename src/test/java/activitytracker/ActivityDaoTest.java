@@ -8,6 +8,7 @@ import org.mariadb.jdbc.MariaDbDataSource;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,8 +33,18 @@ class ActivityDaoTest {
     @Test
     void testSaveActivity() {
         Activity activity = new Activity(LocalDateTime.now(), "Kékestető", ActivityType.HIKING);
-        activityDao.saveActivity(activity);
-        assertEquals("Kékestető",activityDao.findActivityById(1L).getDesc());
+        Activity activityFromDS = activityDao.saveActivity(activity);
+        assertEquals(1L,activityFromDS.getId());
+
+    }
+
+    @Test
+    void testSaveActivity2() {
+        Activity activity = new Activity(LocalDateTime.now(), "Kékestető", ActivityType.HIKING);
+        Activity activity2 = new Activity(LocalDateTime.now(), "Kékestető", ActivityType.BIKING);
+
+        System.out.println(activityDao.insertActivities(List.of(activity,activity2)));
+
 
     }
 
