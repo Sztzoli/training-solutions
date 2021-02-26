@@ -7,6 +7,7 @@ import org.mariadb.jdbc.MariaDbDataSource;
 
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,21 +33,15 @@ class ActivityDaoTest {
 
     @Test
     void testSaveActivity() {
-        Activity activity = new Activity(LocalDateTime.now(), "Kékestető", ActivityType.HIKING);
+        TrackPoint trackPoint = new TrackPoint(LocalDate.now(),10,10);
+        List<TrackPoint> trackPoints = List.of(trackPoint);
+        Activity activity = new Activity(LocalDateTime.now(), "Kékestető", ActivityType.HIKING,trackPoints);
         Activity activityFromDS = activityDao.saveActivity(activity);
         assertEquals(1L,activityFromDS.getId());
 
     }
 
-    @Test
-    void testSaveActivity2() {
-        Activity activity = new Activity(LocalDateTime.now(), "Kékestető", ActivityType.HIKING);
-        Activity activity2 = new Activity(LocalDateTime.now(), "Kékestető", ActivityType.BIKING);
 
-        System.out.println(activityDao.insertActivities(List.of(activity,activity2)));
-
-
-    }
 
 
 }

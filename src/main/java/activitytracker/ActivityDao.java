@@ -19,14 +19,33 @@ public class ActivityDao {
     public Activity saveActivity(Activity activity) {
         String sql = "insert into `activities`(`activity_starttime`,`activity_desc`,`activity_type`) values (?,?,?)";
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps =
-                     conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
         ) {
-            ps.setTimestamp(1, Timestamp.valueOf(activity.getStartTime()));
-            ps.setString(2, activity.getDesc());
-            ps.setString(3, activity.getType().toString());
-            ps.executeUpdate();
-            long id = executeAndGetGeneratedKey(ps);
+            Long id;
+            try (PreparedStatement ps =
+                         conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setTimestamp(1, Timestamp.valueOf(activity.getStartTime()));
+                ps.setString(2, activity.getDesc());
+                ps.setString(3, activity.getType().toString());
+                ps.executeUpdate();
+                id = executeAndGetGeneratedKey(ps);
+            }
+
+            conn.setAutoCommit(false);
+            try (PreparedStatement preparedStatement = conn.prepareStatement("insert into track_points (activity_id, track_time, lat, lon) values (?,?,?,?)")) {
+                for (TrackPoint trackPoint : activity.getTrackPoints()) {
+                    trackPoint.checkTrackPoint();
+                    preparedStatement.setLong(1, id);
+                    preparedStatement.setDate(2, Date.valueOf(trackPoint.getTime()));
+                    preparedStatement.setInt(3, trackPoint.getLat());
+                    preparedStatement.setInt(4, trackPoint.getLon());
+                    preparedStatement.executeUpdate();
+                }
+                conn.commit();
+            } catch (Exception e) {
+                conn.rollback();
+                throw new IllegalArgumentException("something went wrong", e);
+            }
             return new Activity(id, activity.getStartTime(), activity.getDesc(), activity.getType());
         } catch (SQLException sqle) {
             throw new IllegalArgumentException("Error by insert", sqle);
@@ -34,26 +53,32 @@ public class ActivityDao {
     }
 
     public List<Activity> insertActivities(List<Activity> activities) {
-        String sql = "insert into `activities`(`activity_starttime`,`activity_desc`,`activity_type`) values " + "(?,?,?),".repeat(activities.size());
-        sql = sql.substring(0, sql.length()-1);
+        String sql = "insert into `activities`(`activity_starttime`,`activity_desc`,`activity_type`) values (?,?,?)";
         List<Activity> result = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
-            int i = 1;
-            for (Activity activity : activities) {
-                ps.setTimestamp(i++, Timestamp.valueOf(activity.getStartTime()));
-                ps.setString(i++, activity.getDesc());
-                ps.setString(i++, activity.getType().toString());
+        ) {
+            conn.setAutoCommit(false);
+            try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+                for (Activity activity : activities) {
+                    ps.setTimestamp(1, Timestamp.valueOf(activity.getStartTime()));
+                    ps.setString(2, activity.getDesc());
+                    ps.setString(3, activity.getType().toString());
+                    ps.executeUpdate();
+                    long id = executeAndGetGeneratedKey(ps);
+                    result.add(new Activity(id, activity.getStartTime(), activity.getDesc(), activity.getType()));
+                }
+                conn.commit();
+            } catch (Exception e) {
+                conn.rollback();
+                throw new IllegalStateException("Something went wrong", e);
             }
-            ps.executeUpdate();
-            for (Activity activity : activities) {
-                long id = executeAndGetGeneratedKey(ps);
-                result.add(new Activity(id, activity.getStartTime(), activity.getDesc(), activity.getType()));
-            }
-            return result;
+
+
         } catch (SQLException sqle) {
             throw new IllegalStateException("Error by insert", sqle);
         }
+        return result;
     }
 
     private long executeAndGetGeneratedKey(PreparedStatement ps) {
