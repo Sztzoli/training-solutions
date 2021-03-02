@@ -1,7 +1,5 @@
 package activitytracker;
 
-import org.mariadb.jdbc.MariaDbDataSource;
-
 import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -10,7 +8,7 @@ import java.util.List;
 
 public class ActivityDao {
 
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     public ActivityDao(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -18,10 +16,10 @@ public class ActivityDao {
 
     public Activity saveActivity(Activity activity) {
         String sql = "insert into `activities`(`activity_starttime`,`activity_desc`,`activity_type`) values (?,?,?)";
-        try (Connection conn = dataSource.getConnection();
+        try (Connection conn = dataSource.getConnection()
 
         ) {
-            Long id;
+            long id;
             try (PreparedStatement ps =
                          conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setTimestamp(1, Timestamp.valueOf(activity.getStartTime()));
@@ -98,7 +96,7 @@ public class ActivityDao {
         try (
                 Connection conn = dataSource.getConnection();
                 PreparedStatement ps =
-                        conn.prepareStatement(sql);
+                        conn.prepareStatement(sql)
         ) {
             ps.setLong(1, id);
             if (getActivityFromResultSet(ps).size() == 1) {
@@ -128,7 +126,7 @@ public class ActivityDao {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, type.toString());
-            if (getActivityFromResultSet(ps).size() == 0) {
+            if (getActivityFromResultSet(ps).isEmpty()) {
                 throw new IllegalStateException("List is empty");
             }
             return getActivityFromResultSet(ps);
@@ -153,7 +151,6 @@ public class ActivityDao {
         } catch (SQLException sqle) {
             throw new IllegalArgumentException("Error by insert", sqle);
         }
-
     }
 
 
