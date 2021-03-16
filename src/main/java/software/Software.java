@@ -2,7 +2,7 @@ package software;
 
 abstract class Software {
     private String name;
-    private double price;
+    protected double price;
 
     public Software(String name, double price) {
         this.name = name;
@@ -17,9 +17,7 @@ abstract class Software {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+
 
     abstract void increasePrice();
 }

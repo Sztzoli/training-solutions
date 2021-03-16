@@ -8,6 +8,6 @@ public class DeveloperSoftware extends Software{
 
     @Override
     void increasePrice() {
-        super.setPrice(super.getPrice()*1.1d);
+        price = price * 1.1d;
     }
 }

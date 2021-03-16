@@ -8,6 +8,6 @@ public class OfficeSoftware extends Software{
 
     @Override
     void increasePrice() {
-        super.setPrice(super.getPrice()*1.05d);
+        price = price * 1.05d;
     }
 }
